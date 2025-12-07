@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeOnPushComponent } from '../../components/tree-onpush/tree-onpush.component';
 import { BehaviorSubject } from 'rxjs';
@@ -11,14 +11,33 @@ import { BehaviorSubject } from 'rxjs';
   styleUrl: './onpush-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OnPushPageComponent {
+export class OnPushPageComponent implements OnInit, OnDestroy {
   // Pour le test Champ Texte (Règle 1)
   userMessage = '';
 
   // Pour le test Async Pipe (Règle 4)
   asyncStream$ = new BehaviorSubject<number>(0);
 
+  // MEME LOGIQUE QUE ZONE-PAGE pour comparaison scientifique
+  private mouseHandler = () => this.handleEvent();
+
   constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    // On écoute exactement comme dans la page "Zone Default"
+    document.addEventListener('mousemove', this.mouseHandler);
+  }
+
+  handleEvent() {
+    // Zone.js va capter cet event et lancer une Change Detection globale.
+    // MAIS, comme on est en OnPush, ce composant ne devrait PAS se rafraîchir
+    // sauf si on l'y force.
+    Math.random();
+  }
+
+  ngOnDestroy() {
+    document.removeEventListener('mousemove', this.mouseHandler);
+  }
 
   // REGLE 1 : Input change
   updateMessage(value: string) {

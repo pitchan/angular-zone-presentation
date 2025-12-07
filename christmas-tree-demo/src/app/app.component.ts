@@ -10,7 +10,6 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
       <nav>
         <a routerLink="/zone-tree" routerLinkActive="active">1. Zone.js (Default)</a>
         <a routerLink="/onpush-tree" routerLinkActive="active">2. OnPush</a>
-        <a routerLink="/zoneless-tree" routerLinkActive="active">3. Signaux</a>
       </nav>
       
       <router-outlet></router-outlet>
