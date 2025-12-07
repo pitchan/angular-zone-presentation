@@ -1,0 +1,14 @@
+.interaction-zone {
+  border: 2px dashed #444;
+  background: rgba(255,255,255,0.05);
+  overflow-y: auto;
+  padding: 20px;
+  position: relative;
+}
+.content-spacer {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

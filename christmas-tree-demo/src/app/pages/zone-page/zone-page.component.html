@@ -1,0 +1,25 @@
+<h1>Mode : Zone.js (Par défaut) 🧙‍♂️</h1>
+<p class="info-text">
+  Ici, pas de bindings Angular `(mousemove)`.<br>
+  Juste un <code>document.addEventListener('mousemove')</code> natif dans le code.<br>
+  <br>
+  <strong>Avec Zone.js</strong> : Ça clignote (Magie Noire).<br>
+  <strong>En Zoneless</strong> : Rien ne se passe (Preuve que la magie est morte).
+</p>
+
+<!-- Plus de bindings (mousemove) ici ! -->
+<div class="interaction-zone" #zone>
+  
+  <div class="content-spacer">
+    <h3>👋 Bougez la souris N'IMPORTE OÙ !</h3>
+    <p>L'écouteur est global (document).</p>
+    
+    <app-tree-default></app-tree-default>
+
+    <p style="margin-top: 50px; opacity: 0.6">
+      (Si ça ne clignote plus, c'est que vous êtes en Zoneless !)
+    </p>
+    <div style="height: 300px;"></div>
+  </div>
+
+</div>

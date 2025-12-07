@@ -1,0 +1,54 @@
+<h1>Mode : OnPush 🛡️ - Les 4 Fantastiques</h1>
+
+<p class="info-text">
+  Un seul sapin au centre, 4 façons de l'allumer.
+</p>
+
+<div class="layout-container">
+
+  <!-- COLONNE GAUCHE : COMMANDES -->
+  <div class="controls-panel">
+    
+    <!-- REGLE 1 -->
+    <div class="control-group">
+      <h3>1. Changer l'&#64;Input</h3>
+      <input type="text" 
+             placeholder="Tapez un message..." 
+             (input)="updateMessage($any($event.target).value)">
+      <small>Chaque lettre change la référence -> Flash !</small>
+    </div>
+
+    <!-- REGLE 2 -->
+    <div class="control-group">
+      <h3>2. Event Interne</h3>
+      <p>👉 Cliquez directement sur le sapin !</p>
+    </div>
+
+    <!-- REGLE 3 -->
+    <div class="control-group">
+      <h3>3. Async Pipe</h3>
+      <button (click)="triggerAsyncPipe()" class="btn-green">Émettre Flux Observable</button>
+      <small>Le pipe <code>| async</code> fait le travail.</small>
+    </div>
+
+  </div>
+
+  <!-- COLONNE DROITE : LE SAPIN -->
+  <div class="tree-display">
+    <!-- 
+      UN SEUL SAPIN QUI RECOIT TOUT
+      - [message] : vient du champ texte (Règle 1)
+      - [triggerValue] : vient de l'Async Pipe (Règle 3)         
+    -->
+    <app-tree-onpush 
+      [message]="userMessage"
+      [triggerValue]="asyncStream$ | async">
+    </app-tree-onpush>
+  </div>
+
+</div>
+
+<!-- Zone de bruit -->
+<div class="interaction-zone" (mousemove)="onMouseMove()" (scroll)="onScroll()">
+  <p>🐭 Zone de test (Souris / Scroll) : Le sapin doit rester de marbre !</p>
+</div>

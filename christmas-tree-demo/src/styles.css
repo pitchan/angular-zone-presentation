@@ -1,0 +1,62 @@
+/* Reset simple */
+body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #121212; color: #eee; }
+
+/* Layout général */
+.container { padding: 2rem; max-width: 800px; margin: 0 auto; text-align: center; }
+nav { background: #1f1f1f; padding: 1rem; margin-bottom: 2rem; display: flex; justify-content: center; gap: 1rem; }
+nav a { color: #fff; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; transition: background 0.3s; }
+nav a:hover, nav a.active { background: #db2c2c; }
+
+/* === LE SAPIN DE NOËL === */
+.tree-container {
+  display: inline-block;
+  padding: 20px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  background: #1a1a1a;
+  transition: background 0.1s;
+}
+
+/* Le tronc */
+.trunk { width: 40px; height: 40px; background: #5d4037; margin: 0 auto; }
+
+/* Les branches (triangles CSS) */
+.branches {
+  width: 0; height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid #2e7d32; /* Vert sapin */
+  margin: 0 auto;
+  position: relative;
+}
+.branches.top { border-bottom-width: 80px; margin-bottom: -20px; z-index: 2; position: relative; }
+
+/* Les boules de Noël */
+.ornament {
+  width: 12px; height: 12px; border-radius: 50%;
+  position: absolute; background: #c62828; /* Rouge */
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.o1 { top: 70px; left: -20px; }
+.o2 { top: 40px; right: -10px; background: #fbc02d; /* Or */ }
+.o3 { top: 80px; right: -30px; background: #1976d2; /* Bleu */ }
+
+/* === L'ANIMATION DE DÉTECTION === */
+/* C'est cette classe qui sera activée brièvement à chaque CD */
+.tree-flash {
+  animation: flash-animation 0.5s ease-out;
+}
+
+@keyframes flash-animation {
+  0% { background-color: rgba(255, 255, 0, 0.4); box-shadow: 0 0 30px yellow; transform: scale(1.05); }
+  100% { background-color: #1a1a1a; transform: scale(1); }
+}
+
+.counter-badge {
+  display: block; margin-top: 15px; font-size: 1.2rem; font-weight: bold; color: #ffeb3b;
+}
+
+.controls { margin: 20px 0; border-top: 1px solid #333; padding-top: 20px; }
+button { padding: 10px 20px; cursor: pointer; background: #444; color: white; border: none; border-radius: 4px; font-size: 1rem; margin: 5px; }
+button:hover { background: #666; }
+.info-text { color: #aaa; margin-bottom: 20px; font-style: italic; }
