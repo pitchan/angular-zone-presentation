@@ -1,0 +1,21 @@
+.card {    
+    display: flex;
+    background-color: cornflowerblue;
+    color: white;    
+
+    font-size: 24px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.layout {
+    display: flex;
+    gap: 12px;
+}
+
+.col-6 {
+    background-color: lightgray;
+    color: black;
+    flex: 0 0 calc(50% - 6px);
+}
