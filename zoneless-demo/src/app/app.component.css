@@ -1,12 +1,13 @@
 h1 {
   text-align: center;
   margin-bottom: 0.5rem;
+  color: white;
 }
 
 .info-text {
   text-align: center;
   margin-bottom: 2rem;
-  color: #000000;
+  color: #666;
 }
 
 .layout-container {
@@ -139,4 +140,3 @@ small {
     width: 100%;
   }
 }
-

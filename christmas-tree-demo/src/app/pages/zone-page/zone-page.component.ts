@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { TreeDefaultComponent } from '../../components/tree-default/tree-default.component';
 
 @Component({
@@ -9,33 +9,63 @@ import { TreeDefaultComponent } from '../../components/tree-default/tree-default
   styleUrl: './zone-page.component.css'
 })
 export class ZonePageComponent implements OnInit, OnDestroy {
-  // On récupère la zone d'interaction pour y attacher l'event manuellement
-  @ViewChild('zone') zoneRef!: ElementRef;
+  // === TEST 1: setTimeout ===
+  setTimeoutCounter = 0;
   
-  private mouseHandler = () => this.handleEvent();
+  // === TEST 2: addEventListener (hors template) ===
+  mouseCounter = 0;
+  private mouseHandler = () => {
+    this.mouseCounter++;
+    console.log('[Zone Default] MouseMove:', this.mouseCounter);
+  };
+  
+  // === TEST 3: fetch/Promise ===
+  fetchCounter = 0;
+  
+  // === TEST 4: Event template (témoin) ===
+  clickCounter = 0;
+  
+  // === TEST 5: Signal ===
+  signalCounter = signal(0);
 
   ngOnInit() {
-    // ICI EST LA PREUVE ULTIME !
-    // On attache un écouteur manuellement (comme le ferait une lib externe, ex: Chart.js, Leaflet...)
-    
-    // CAS 1 : Avec Zone.js actif -> Zone patche addEventListener -> Le sapin clignotera.
-    // CAS 2 : En Zoneless -> addEventListener est natif (muet) -> Le sapin NE CLIGNOTERA PLUS.
-    
-    // On écoute sur tout le document pour être sûr (ou sur la zoneRef après viewInit)
-    // Pour l'exemple simple, un setInterval est encore plus visuel et "automatique"
-    
-    // Mais gardons l'interaction souris pour rester cohérent avec ton scénario :
-    document.addEventListener('mousemove', this.mouseHandler);
+    // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
+    setInterval(() => {
+      this.setTimeoutCounter++;
+      console.log('[Zone Default] setTimeout:', this.setTimeoutCounter);
+    }, 2000);
+
+    // TEST 2: addEventListener manuel (hors template)
+    const mouseZone = document.getElementById('mouseZone');
+    if (mouseZone) {
+      mouseZone.addEventListener('mousemove', this.mouseHandler);
+    }
+
+    // TEST 3: fetch/Promise automatique toutes les 5 secondes
+    setInterval(() => {
+      Promise.resolve().then(() => {
+        this.fetchCounter++;
+        console.log('[Zone Default] Promise resolved:', this.fetchCounter);
+      });
+    }, 5000);
   }
 
-  handleEvent() {
-    // On fait un calcul bidon, mais on ne prévient pas Angular explicitement
-    Math.random(); 
-    // Console pour prouver que l'event passe bien
-    // console.log('Mouse move natif détecté'); 
+  // TEST 4: Event template (click)
+  handleClick() {
+    this.clickCounter++;
+    console.log('[Zone Default] Template click:', this.clickCounter);
+  }
+
+  // TEST 5: Modification via Signal
+  incrementSignal() {
+    this.signalCounter.update(c => c + 1);
+    console.log('[Zone Default] Signal:', this.signalCounter());
   }
 
   ngOnDestroy() {
-    document.removeEventListener('mousemove', this.mouseHandler);
+    const mouseZone = document.getElementById('mouseZone');
+    if (mouseZone) {
+      mouseZone.removeEventListener('mousemove', this.mouseHandler);
+    }
   }
 }

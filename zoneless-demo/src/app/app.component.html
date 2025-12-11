@@ -1,44 +1,44 @@
-<h1>Mode : Zone.js (Default) 🧙‍♂️</h1>
+<h1>Mode : Zoneless 🚀</h1>
 
 <p class="info-text">
-  Zone.js intercepte TOUS les événements asynchrones et déclenche automatiquement la détection de changement.
+  Sans Zone.js, seuls les events du template et les Signals déclenchent automatiquement la détection de changement.
 </p>
 
 <div class="layout-container">
   
   <!-- COLONNE GAUCHE : SAPIN -->
   <div class="tree-display">
-    <app-tree-default style="position:fixed"></app-tree-default>
+    <app-tree style="position: fixed;"></app-tree>
   </div>
 
   <!-- COLONNE DROITE : LES 5 TESTS -->
   <div class="tests-panel">
     
     <!-- TEST 1 : setTimeout -->
-    <div class="test-card test-success">
-      <h3>1️⃣ setTimeout() <span class="badge success">✅ Fonctionne</span></h3>
+    <div class="test-card test-fail">
+      <h3>1️⃣ setTimeout() <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
       <p>Un compteur qui s'incrémente automatiquement toutes les 2 secondes.</p>
-      <div class="counter-display">{{ setTimeoutCounter }}</div>
-      <small>Zone.js intercepte setTimeout → CD automatique !</small>
+      <div class="counter-display frozen">{{ setTimeoutCounter }}</div>
+      <small>⚠️ Pas de Zone.js → setTimeout ne déclenche RIEN !</small>
     </div>
 
     <!-- TEST 2 : addEventListener -->
-    <div class="test-card test-success">
-      <h3>2️⃣ addEventListener() <span class="badge success">✅ Fonctionne</span></h3>
+    <div class="test-card test-fail">
+      <h3>2️⃣ addEventListener() <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
       <p>Bougez la souris dans la zone orange :</p>
       <div id="mouseZone" class="mouse-zone">
         🖱️ Zone de détection
       </div>
-      <div class="counter-display">{{ mouseCounter }}</div>
-      <small>addEventListener est patché par Zone.js → CD automatique !</small>
+      <div class="counter-display frozen">{{ mouseCounter }}</div>
+      <small>⚠️ addEventListener n'est pas intercepté en Zoneless !</small>
     </div>
 
     <!-- TEST 3 : fetch/Promise -->
-    <div class="test-card test-success">
-      <h3>3️⃣ fetch/Promise <span class="badge success">✅ Fonctionne</span></h3>
+    <div class="test-card test-fail">
+      <h3>3️⃣ fetch/Promise <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
       <p>Une Promise se résout automatiquement toutes les 5 secondes.</p>
-      <div class="counter-display">{{ fetchCounter }}</div>
-      <small>✅ Zone.js intercepte les Promises → CD automatique même sans event utilisateur !</small>
+      <div class="counter-display frozen">{{ fetchCounter }}</div>
+      <small>⚠️ Pas de Zone.js → Les Promises ne déclenchent RIEN automatiquement !</small>
     </div>
 
     <!-- TEST 4 : Event Template -->
@@ -46,7 +46,7 @@
       <h3>4️⃣ Event Template <span class="badge success">✅ Fonctionne</span></h3>
       <button (click)="handleClick()" class="btn-primary">Cliquer ici</button>
       <div class="counter-display">{{ clickCounter }}</div>
-      <small>Les events du template fonctionnent toujours (même sans Zone.js)</small>
+      <small>✅ Les events du template fonctionnent TOUJOURS en Zoneless !</small>
     </div>
 
     <!-- TEST 5 : Signal -->
@@ -54,7 +54,7 @@
       <h3>5️⃣ Signal <span class="badge success">✅ Fonctionne</span></h3>
       <button (click)="incrementSignal()" class="btn-primary">Incrémenter Signal</button>
       <div class="counter-display">{{ signalCounter() }}</div>
-      <small>Les signals fonctionnent partout (réactivité native Angular)</small>
+      <small>✅ Les signals sont la solution recommandée en Zoneless !</small>
     </div>
 
   </div>

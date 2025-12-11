@@ -1,0 +1,16 @@
+<div class="tree-container" #treeContainer>
+  <!-- Sonde visuelle de détection -->
+  {{ checkVisualizer() }}
+
+  <div class="branches top"></div>
+  <div class="branches">
+    <div class="ornament o1" [style.background-color]="getGlitterColor(1)"></div>
+    <div class="ornament o2" [style.background-color]="getGlitterColor(2)"></div>
+    <div class="ornament o3" [style.background-color]="getGlitterColor(3)"></div>
+  </div>
+  <div class="trunk"></div>
+
+  <div class="counter-badge">
+    Checks: {{ checkCount }}
+  </div>
+</div>

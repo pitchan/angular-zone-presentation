@@ -1,54 +1,61 @@
-<h1>Mode : OnPush 🛡️ - Les 4 Fantastiques</h1>
+<h1>Mode : OnPush 🛡️</h1>
 
 <p class="info-text">
-  Un seul sapin au centre, 4 façons de l'allumer.
+  OnPush optimise la détection : le composant ne se met à jour QUE si ses &#64;Input changent, un event interne se déclenche, ou un Observable émet.
 </p>
 
 <div class="layout-container">
-
-  <!-- COLONNE GAUCHE : COMMANDES -->
-  <div class="controls-panel">
-    
-    <!-- REGLE 1 -->
-    <div class="control-group">
-      <h3>1. Changer l'&#64;Input</h3>
-      <input type="text" 
-             placeholder="Tapez un message..." 
-             (input)="updateMessage($any($event.target).value)">
-      <small>Chaque lettre change la référence -> Flash !</small>
-    </div>
-
-    <!-- REGLE 2 -->
-    <div class="control-group">
-      <h3>2. Event Interne</h3>
-      <p>👉 Cliquez directement sur le sapin !</p>
-    </div>
-
-    <!-- REGLE 3 -->
-    <div class="control-group">
-      <h3>3. Async Pipe</h3>
-      <button (click)="triggerAsyncPipe()" class="btn-green">Émettre Flux Observable</button>
-      <small>Le pipe <code>| async</code> fait le travail.</small>
-    </div>
-
-  </div>
-
-  <!-- COLONNE DROITE : LE SAPIN -->
+  
+  <!-- COLONNE GAUCHE : SAPIN -->
   <div class="tree-display">
-    <!-- 
-      UN SEUL SAPIN QUI RECOIT TOUT
-      - [message] : vient du champ texte (Règle 1)
-      - [triggerValue] : vient de l'Async Pipe (Règle 3)         
-    -->
-    <app-tree-onpush 
-      [message]="userMessage"
-      [triggerValue]="asyncStream$ | async">
-    </app-tree-onpush>
+    <app-tree-default style="position:fixed"></app-tree-default>
   </div>
 
-</div>
+  <!-- COLONNE DROITE : LES 5 TESTS -->
+  <div class="tests-panel">
+    
+    <!-- TEST 1 : setTimeout -->
+    <div class="test-card test-fail">
+      <h3>1️⃣ setTimeout() <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
+      <p>Un compteur qui s'incrémente automatiquement toutes les 2 secondes.</p>
+      <div class="counter-display frozen">{{ setTimeoutCounter }}</div>
+      <small>⚠️ Zone.js déclenche une CD globale, MAIS ce composant OnPush n'est pas marqué pour mise à jour !</small>
+    </div>
 
-<!-- Zone de bruit -->
-<div class="interaction-zone" (mousemove)="onMouseMove()" (scroll)="onScroll()">
-  <p>🐭 Zone de test (Souris / Scroll) : Le sapin doit rester de marbre !</p>
+    <!-- TEST 2 : addEventListener -->
+    <div class="test-card test-fail">
+      <h3>2️⃣ addEventListener() <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
+      <p>Bougez la souris dans la zone orange :</p>
+      <div id="mouseZone" class="mouse-zone">
+        🖱️ Zone de détection
+      </div>
+      <div class="counter-display frozen">{{ mouseCounter }}</div>
+      <small>⚠️ Zone.js détecte l'event, mais le composant OnPush n'est pas vérifié !</small>
+    </div>
+
+    <!-- TEST 3 : fetch/Promise -->
+    <div class="test-card test-fail">
+      <h3>3️⃣ fetch/Promise <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
+      <p>Une Promise se résout automatiquement toutes les 5 secondes.</p>
+      <div class="counter-display frozen">{{ fetchCounter }}</div>
+      <small>⚠️ Zone.js déclenche une CD globale, MAIS ce composant OnPush n'est pas marqué pour mise à jour !</small>
+    </div>
+
+    <!-- TEST 4 : Event Template -->
+    <div class="test-card test-success">
+      <h3>4️⃣ Event Template <span class="badge success">✅ Fonctionne</span></h3>
+      <button (click)="handleClick()" class="btn-primary">Cliquer ici</button>
+      <div class="counter-display">{{ clickCounter }}</div>
+      <small>✅ Les events internes au composant déclenchent la CD en OnPush !</small>
+    </div>
+
+    <!-- TEST 5 : Signal -->
+    <div class="test-card test-success">
+      <h3>5️⃣ Signal <span class="badge success">✅ Fonctionne</span></h3>
+      <button (click)="incrementSignal()" class="btn-primary">Incrémenter Signal</button>
+      <div class="counter-display">{{ signalCounter() }}</div>
+      <small>✅ Les signals fonctionnent en OnPush (réactivité fine) !</small>
+    </div>
+
+  </div>
 </div>

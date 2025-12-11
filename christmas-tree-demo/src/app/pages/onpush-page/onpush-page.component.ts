@@ -1,57 +1,75 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TreeOnPushComponent } from '../../components/tree-onpush/tree-onpush.component';
-import { BehaviorSubject } from 'rxjs';
+import { TreeDefaultComponent } from '../../components/tree-default/tree-default.component';
 
 @Component({
   selector: 'app-onpush-page',
   standalone: true,
-  imports: [CommonModule, TreeOnPushComponent],
+  imports: [CommonModule, TreeDefaultComponent],
   templateUrl: './onpush-page.component.html',
   styleUrl: './onpush-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OnPushPageComponent implements OnInit, OnDestroy {
-  // Pour le test Champ Texte (Règle 1)
-  userMessage = '';
-
-  // Pour le test Async Pipe (Règle 4)
-  asyncStream$ = new BehaviorSubject<number>(0);
-
-  // MEME LOGIQUE QUE ZONE-PAGE pour comparaison scientifique
-  private mouseHandler = () => this.handleEvent();
-
-  constructor(private cdr: ChangeDetectorRef) {}
+  
+  // === TEST 1: setTimeout ===
+  setTimeoutCounter = 0;
+  
+  // === TEST 2: addEventListener (hors template) ===
+  mouseCounter = 0;
+  private mouseHandler = () => {
+    this.mouseCounter++;
+    console.log('[OnPush] MouseMove:', this.mouseCounter);
+  };
+  
+  // === TEST 3: fetch/Promise ===
+  fetchCounter = 0;
+  
+  // === TEST 4: Event template (témoin) ===
+  clickCounter = 0;
+  
+  // === TEST 5: Signal ===
+  signalCounter = signal(0);
 
   ngOnInit() {
-    // On écoute exactement comme dans la page "Zone Default"
-    document.addEventListener('mousemove', this.mouseHandler);
+    // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
+    // ⚠️ OnPush: Ce composant parent NE se mettra PAS à jour
+    setInterval(() => {
+      this.setTimeoutCounter++;
+      console.log('[OnPush] setTimeout:', this.setTimeoutCounter);
+    }, 2000);
+
+    // TEST 2: addEventListener manuel (hors template)
+    const mouseZone = document.getElementById('mouseZone');
+    if (mouseZone) {
+      mouseZone.addEventListener('mousemove', this.mouseHandler);
+    }
+
+    // TEST 3: fetch/Promise automatique toutes les 5 secondes
+    setInterval(() => {
+      Promise.resolve().then(() => {
+        this.fetchCounter++;
+        console.log('[OnPush] Promise resolved:', this.fetchCounter);
+      });
+    }, 5000);
   }
 
-  handleEvent() {
-    // Zone.js va capter cet event et lancer une Change Detection globale.
-    // MAIS, comme on est en OnPush, ce composant ne devrait PAS se rafraîchir
-    // sauf si on l'y force.
-    Math.random();
+  // TEST 4: Event template (click)
+  handleClick() {
+    this.clickCounter++;
+    console.log('[OnPush] Template click:', this.clickCounter);
+  }
+
+  // TEST 5: Modification via Signal
+  incrementSignal() {
+    this.signalCounter.update(c => c + 1);
+    console.log('[OnPush] Signal:', this.signalCounter());
   }
 
   ngOnDestroy() {
-    document.removeEventListener('mousemove', this.mouseHandler);
+    const mouseZone = document.getElementById('mouseZone');
+    if (mouseZone) {
+      mouseZone.removeEventListener('mousemove', this.mouseHandler);
+    }
   }
-
-  // REGLE 1 : Input change
-  updateMessage(value: string) {
-    this.userMessage = value;
-    // Ici, pas besoin de markForCheck.
-    // Le fait de changer this.userMessage (qui est lié à [message] du sapin)
-    // va déclencher la détection sur le sapin car ses inputs changent.
-  }
-
-  // REGLE 4 : Async Pipe
-  triggerAsyncPipe() {
-    this.asyncStream$.next(this.asyncStream$.value + 1);
-  }
-
-  onMouseMove() {} 
-  onScroll() {}
 }

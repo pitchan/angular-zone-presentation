@@ -1,5 +1,5 @@
 /* Reset simple */
-body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #121212; color: #eee; }
+body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #121212; color: #000000; }
 
 /* Layout général */
 .container { padding: 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
