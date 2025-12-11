@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [TreeComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
