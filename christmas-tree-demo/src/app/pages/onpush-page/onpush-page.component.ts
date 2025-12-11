@@ -34,7 +34,7 @@ export class OnPushPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
     // ⚠️ OnPush: Ce composant parent NE se mettra PAS à jour
-    setInterval(() => {
+    setTimeout(() => {
       this.setTimeoutCounter++;
       console.log('[OnPush] setTimeout:', this.setTimeoutCounter);
     }, 2000);

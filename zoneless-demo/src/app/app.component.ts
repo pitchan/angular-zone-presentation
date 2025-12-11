@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
     // ⚠️ Zoneless: AUCUNE mise à jour automatique !
-    setInterval(() => {
+    setTimeout(() => {
       this.setTimeoutCounter++;
       console.log('[Zoneless] setTimeout:', this.setTimeoutCounter);
     }, 2000);

@@ -30,7 +30,7 @@ export class ZonePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
-    setInterval(() => {
+    setTimeout(() => {
       this.setTimeoutCounter++;
       console.log('[Zone Default] setTimeout:', this.setTimeoutCounter);
     }, 2000);
