@@ -12,8 +12,8 @@ import { TreeDefaultComponent } from '../../components/tree-default/tree-default
 })
 export class OnPushPageComponent implements OnInit, OnDestroy {
   
-  // === TEST 1: setTimeout ===
-  setTimeoutCounter = 0;
+  // === TEST 1: setInterval ===
+  setIntervalCounter = 0;
   
   // === TEST 2: addEventListener (hors template) ===
   mouseCounter = 0;
@@ -32,11 +32,11 @@ export class OnPushPageComponent implements OnInit, OnDestroy {
   signalCounter = signal(0);
 
   ngOnInit() {
-    // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
+    // TEST 1: setInterval modifie une propriété toutes les 2 secondes
     // ⚠️ OnPush: Ce composant parent NE se mettra PAS à jour
-    setTimeout(() => {
-      this.setTimeoutCounter++;
-      console.log('[OnPush] setTimeout:', this.setTimeoutCounter);
+    setInterval(() => {
+      this.setIntervalCounter++;
+      console.log('[OnPush] setInterval:', this.setIntervalCounter);
     }, 2000);
 
     // TEST 2: addEventListener manuel (hors template)

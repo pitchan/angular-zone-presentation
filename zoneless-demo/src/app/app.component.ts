@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit, OnDestroy {
-  // === TEST 1: setTimeout ===
-  setTimeoutCounter = 0;
+  // === TEST 1: setInterval ===
+  setIntervalCounter = 0;
   
   // === TEST 2: addEventListener (hors template) ===
   mouseCounter = 0;
@@ -29,11 +29,11 @@ export class AppComponent implements OnInit, OnDestroy {
   signalCounter = signal(0);
 
   ngOnInit() {
-    // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
+    // TEST 1: setInterval modifie une propriété toutes les 2 secondes
     // ⚠️ Zoneless: AUCUNE mise à jour automatique !
-    setTimeout(() => {
-      this.setTimeoutCounter++;
-      console.log('[Zoneless] setTimeout:', this.setTimeoutCounter);
+    setInterval(() => {
+      this.setIntervalCounter++;
+      console.log('[Zoneless] setInterval:', this.setIntervalCounter);
     }, 2000);
 
     // TEST 2: addEventListener manuel (hors template)

@@ -9,8 +9,8 @@ import { TreeDefaultComponent } from '../../components/tree-default/tree-default
   styleUrl: './zone-page.component.css'
 })
 export class ZonePageComponent implements OnInit, OnDestroy {
-  // === TEST 1: setTimeout ===
-  setTimeoutCounter = 0;
+  // === TEST 1: setInterval ===
+  setIntervalCounter = 0;
   
   // === TEST 2: addEventListener (hors template) ===
   mouseCounter = 0;
@@ -30,9 +30,9 @@ export class ZonePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // TEST 1: setTimeout modifie une propriété toutes les 2 secondes
-    setTimeout(() => {
-      this.setTimeoutCounter++;
-      console.log('[Zone Default] setTimeout:', this.setTimeoutCounter);
+    setInterval(() => {
+      this.setIntervalCounter++;
+      console.log('[Zone Default] setInterval:', this.setIntervalCounter);
     }, 2000);
 
     // TEST 2: addEventListener manuel (hors template)

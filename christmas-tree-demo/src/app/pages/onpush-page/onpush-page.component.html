@@ -14,11 +14,11 @@
   <!-- COLONNE DROITE : LES 5 TESTS -->
   <div class="tests-panel">
     
-    <!-- TEST 1 : setTimeout -->
+    <!-- TEST 1 : setInterval -->
     <div class="test-card test-fail">
-      <h3>1️⃣ setTimeout() <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
+      <h3>1️⃣ setInterval() <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
       <p>Un compteur qui s'incrémente automatiquement toutes les 2 secondes.</p>
-      <div class="counter-display frozen">{{ setTimeoutCounter }}</div>
+      <div class="counter-display frozen">{{ setIntervalCounter }}</div>
       <small>⚠️ Zone.js déclenche une CD globale, MAIS ce composant OnPush n'est pas marqué pour mise à jour !</small>
     </div>
 
