@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { TreeDefaultComponent } from '../../components/tree-default/tree-default.component';
+import { delay, interval, of } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-zone-page',
@@ -39,15 +41,17 @@ export class ZonePageComponent implements OnInit, OnDestroy {
     const mouseZone = document.getElementById('mouseZone');
     if (mouseZone) {
       mouseZone.addEventListener('mousemove', this.mouseHandler);
-    }
+    }    
+  }
 
-    // TEST 3: fetch/Promise automatique toutes les 5 secondes
-    setInterval(() => {
-      Promise.resolve().then(() => {
-        this.fetchCounter++;
-        console.log('[Zone Default] Promise resolved:', this.fetchCounter);
-      });
-    }, 5000);
+  constructor() {
+    // TEST 3: Observable automatique toutes les 5 secondes
+    interval(5000).pipe(
+      takeUntilDestroyed()
+    ).subscribe(() => {
+      this.fetchCounter++;
+      console.log('[Zone Default] Initial data loaded each 5s');
+    });
   }
 
   // TEST 4: Event template (click)

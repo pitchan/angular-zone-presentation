@@ -18,8 +18,8 @@
     <div class="test-card test-fail">
       <h3>1️⃣ setInterval() <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
       <p>Un compteur qui s'incrémente automatiquement toutes les 2 secondes.</p>
-      <div class="counter-display frozen">{{ setTimeoutCounter }}</div>
-      <small>⚠️ Pas de Zone.js → setTimeout ne déclenche RIEN !</small>
+      <div class="counter-display frozen">{{ setIntervalCounter }}</div>
+      <small>⚠️ Pas de Zone.js → setInterval ne déclenche RIEN !</small>
     </div>
 
     <!-- TEST 2 : addEventListener -->
@@ -33,12 +33,12 @@
       <small>⚠️ addEventListener n'est pas intercepté en Zoneless !</small>
     </div>
 
-    <!-- TEST 3 : fetch/Promise -->
-    <div class="test-card test-fail">
-      <h3>3️⃣ fetch/Promise <span class="badge fail">❌ Ne fonctionne PAS</span></h3>
-      <p>Une Promise se résout automatiquement toutes les 5 secondes.</p>
-      <div class="counter-display frozen">{{ fetchCounter }}</div>
-      <small>⚠️ Pas de Zone.js → Les Promises ne déclenchent RIEN automatiquement !</small>
+    <!-- TEST 3 : Observable -->
+    <div class="test-card test-success">
+      <h3>3️⃣ Observable <span class="badge fail">❌ Fonctionne</span></h3>
+      <p>Un Observable émet automatiquement toutes les 5 secondes.</p>
+      <div class="counter-display">{{ fetchCounter }}</div>
+      <small>✅ Zone.js intercepte les observables → CD automatique même sans event utilisateur !</small>
     </div>
 
     <!-- TEST 4 : Event Template -->

@@ -10,11 +10,12 @@
   <div class="tree-display">
     <app-tree-default style="position:fixed"></app-tree-default>
   </div>
+  
 
   <!-- COLONNE DROITE : LES 5 TESTS -->
   <div class="tests-panel">
     
-    <!-- TEST 1 : setTimeout -->
+    <!-- TEST 1 : setInterval -->
     <div class="test-card test-success">
       <h3>1️⃣ setInterval() <span class="badge success">✅ Fonctionne</span></h3>
       <p>Un compteur qui s'incrémente automatiquement toutes les 2 secondes.</p>
@@ -33,12 +34,12 @@
       <small>addEventListener est patché par Zone.js → CD automatique !</small>
     </div>
 
-    <!-- TEST 3 : fetch/Promise -->
+    <!-- TEST 3 : Observable -->
     <div class="test-card test-success">
-      <h3>3️⃣ fetch/Promise <span class="badge success">✅ Fonctionne</span></h3>
-      <p>Une Promise se résout automatiquement toutes les 5 secondes.</p>
+      <h3>3️⃣ Observable <span class="badge success">✅ Fonctionne</span></h3>
+      <p>Un Observable émet automatiquement toutes les 5 secondes.</p>
       <div class="counter-display">{{ fetchCounter }}</div>
-      <small>✅ Zone.js intercepte les Promises → CD automatique même sans event utilisateur !</small>
+      <small>✅ Zone.js intercepte les observables → CD automatique même sans event utilisateur !</small>
     </div>
 
     <!-- TEST 4 : Event Template -->

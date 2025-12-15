@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeDefaultComponent } from '../../components/tree-default/tree-default.component';
+import { interval } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-onpush-page',
@@ -44,14 +46,16 @@ export class OnPushPageComponent implements OnInit, OnDestroy {
     if (mouseZone) {
       mouseZone.addEventListener('mousemove', this.mouseHandler);
     }
+  }
 
-    // TEST 3: fetch/Promise automatique toutes les 5 secondes
-    setInterval(() => {
-      Promise.resolve().then(() => {
-        this.fetchCounter++;
-        console.log('[OnPush] Promise resolved:', this.fetchCounter);
-      });
-    }, 5000);
+  constructor() {
+    // TEST 3: Observable automatique toutes les 5 secondes
+    interval(5000).pipe(
+      takeUntilDestroyed()
+    ).subscribe(() => {
+      this.fetchCounter++;
+      console.log('[Zone Default] Initial data loaded each 5s');
+    });
   }
 
   // TEST 4: Event template (click)
