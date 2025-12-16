@@ -6,7 +6,7 @@
 
 <!-- Syntaxe template étendu -->
 <div class="card">
-  Est ce que name est une propriété de l'objet &nbsp;<b>user</b> : {{ 'name' in user }}
+  Est ce que name est une propriété de l'objet &nbsp;<b>user</b> : {{ 'name' in users }}
 </div>
 
 <div class="card">
@@ -15,4 +15,31 @@
 
 <div class="card">
   <div [class]="`layout col-${colWidth}`">Test</div>
+</div>
+
+
+<div class="card">
+  <label for="user-select">Choisir un utilisateur :</label>
+  <form>
+    <select id="user-select" [field]="userForm.id">
+      @for (user of users; track user.id) {
+        <option [value]="user.id">{{ user.name }}</option>
+      }
+    </select>
+  </form>
+  
+  <div>
+    Age : {{ currentSelection()?.age }}
+  </div>
+</div>
+
+<div class="card">
+  <div class="list">
+    <div>Utilisateurs ayant le même âge :</div><br/>
+    @for( user of sameAge(); track user.id) {        
+      <div>{{ user.name }} ({{ user.age }} ans)</div>
+    } @empty {
+      <div>Aucun utilisateur n'a le même age que {{ currentSelection()?.name }}.</div>
+    } 
+  </div>  
 </div>

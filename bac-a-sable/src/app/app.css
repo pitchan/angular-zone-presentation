@@ -2,7 +2,8 @@
     display: flex;
     background-color: cornflowerblue;
     color: white;    
-
+    align-items: center;
+    gap: 10px;
     font-size: 24px;
     margin-bottom: 12px;
     border-radius: 12px;
