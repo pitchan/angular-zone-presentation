@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, signal, computed } from '@angular/core';
 import { form, Field } from '@angular/forms/signals';
@@ -12,7 +12,7 @@ interface UserData {
 
 @Component({
   selector: 'app-root',
-  imports: [AsyncPipe, Field],
+  imports: [AsyncPipe, Field, JsonPipe],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -67,11 +67,10 @@ export class App {
     return this.users.filter(user => user.age === age && user.id !== this.userForm().value().id);
   });
 
-  #ageApi = computed(() => this.userForm().value().age);
 
   
   myCallHttp = httpResource(() =>    
-    `https://jsonplaceholder.typicode.com/todos/${this.#ageApi()}`,    
+    `https://jsonplaceholder.typicode.com/todos/${this.currentSelection()?.id || '1'}`,    
   );
 
 }
